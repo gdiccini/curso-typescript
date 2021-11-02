@@ -1,59 +1,82 @@
 // Exercício 1 - Classe
-function Moto(nome) {
-  this.nome = nome
-  this.velocidade = 0
+class Motorcycle {
+  protected name: string;
+  protected _speed: number = 0;
 
-  this.buzinar = function() {
-      console.log('Toooooooooot!')
+  constructor(name: string) {
+    this.name = name;
   }
 
-  this.acelerar= function(delta) {
-      this.velocidade = this.velocidade + delta
+  public changeSpeed(delta: number): number {
+    this._speed += delta;
+    if (this._speed < 0) this._speed = 0;
+    return this._speed;
+  }
+
+  public honk(): void {
+    console.log('Tooooooooooooooot!')
+  }
+
+  get speed(): number {
+    return this._speed;
   }
 }
 
-var moto = new Moto('Ducati')
-moto.buzinar()
-console.log(moto.velocidade)
-moto.acelerar(30)
-console.log(moto.velocidade)
+var moto = new Motorcycle('Ducati')
+console.log('moto', moto)
+moto.honk()
+console.log(moto.speed)
+moto.changeSpeed(30)
+console.log(moto.speed)
 
 // Exercício 2 - Herança
-var objeto2D = {
-  base: 0,
-  altura: 0
+abstract class Object2D {
+  // protected _base: number = 0;
+  // protected _height: number = 0;
+
+  abstract area(): number;
+
+  constructor(public _base: number, public _height: number) {}
+
+  set base(value: number) {
+    this._base = value
+  }
+
+  get base(): number {
+    return this._base;
+  }
+
+  set height(value: number) {
+    this._height = value
+  }
+
+  get height(): number {
+    return this._height;
+  }
 }
 
-var retangulo = Object.create(objeto2D)
-retangulo.base = 5
-retangulo.altura = 7
-retangulo.area = function() {
-  return this.base * this.altura
+class Rectangle extends Object2D {
+  public area(): number {
+    return this._height * this._base;
+  }
 }
-console.log(retangulo.area())
+
+var reactangle = new Rectangle(5, 7);
+// reactangle.base = 5
+// reactangle.height = 7
+
+console.log(reactangle.area())
 
 // Exercício 3 - Getters & Setters
-var estagiario = {
-  _primeiroNome: ''
+class Estagiario {
+  private _firstName: string = '';
+
+  get firstName(): string { return this._firstName; }
+  set firstName(name: string) { this._firstName = name }
 }
-
-Object.defineProperty(estagiario, 'primeiroNome', {
-  get: function () {
-      return this._primeiroNome
-  },
-  set: function (valor) {
-      if (valor.length >= 3) {
-          this._primeiroNome = valor
-      } else {
-          this._primeiroNome = ''
-      }
-  },
-  enumerable: true,
-  configurable: true
-})
-
-console.log(estagiario.primeiroNome)
-estagiario.primeiroNome = 'Le'
-console.log(estagiario.primeiroNome)
-estagiario.primeiroNome = 'Leonardo'
-console.log(estagiario.primeiroNome)
+const estagiario = new Estagiario();
+console.log(estagiario.firstName)
+estagiario.firstName = 'Le'
+console.log(estagiario.firstName)
+estagiario.firstName = 'Leonardo'
+console.log(estagiario.firstName)
