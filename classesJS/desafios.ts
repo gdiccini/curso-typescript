@@ -62,8 +62,6 @@ class Rectangle extends Object2D {
 }
 
 var reactangle = new Rectangle(5, 7);
-// reactangle.base = 5
-// reactangle.height = 7
 
 console.log(reactangle.area())
 
