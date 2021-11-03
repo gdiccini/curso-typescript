@@ -81,3 +81,8 @@ class RealABC implements ABC {
   c(): void {}
 }
 
+abstract class AbstractABD implements A, B {
+  a(): void {}
+  b(): void {}
+  abstract d(): void
+}
