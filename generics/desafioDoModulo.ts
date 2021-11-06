@@ -22,7 +22,7 @@ class Mapa<T, R> {
     this.itens.push(argumento);
   }
 
-  obter(chave: T) {
+  obter(chave: T): Par<T, R> | null {
     const element = this.itens.find((element) => element.chave === chave);
     if (element) return element;
     return null;
